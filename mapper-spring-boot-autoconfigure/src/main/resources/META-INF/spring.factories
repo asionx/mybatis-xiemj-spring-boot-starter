@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.xiemj.spring.boot.autoconfigure.druid.DruidDataSourceAutoConfigration,\
+  com.xiemj.spring.boot.autoconfigure.generator.GeneratorAutoConfiguration,\
+  com.xiemj.spring.boot.autoconfigure.page.PageAutoConfiguration
+
