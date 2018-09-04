@@ -30,7 +30,6 @@ import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
-import xiemj.springboot.mybatis.pagetool.PageInterceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +40,9 @@ import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.core.env.Environment;
+
+import gaohao.springboot.mybatis.pagetool.PageInterceptor;
 
 /**
  * Mapper 配置

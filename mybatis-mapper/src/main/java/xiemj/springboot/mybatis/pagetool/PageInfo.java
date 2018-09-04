@@ -28,8 +28,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import com.xiemj.convention.data.domain.DefaultPage;
-
 /**
  * 对Page<E>结果进行包装
  * <p/>
@@ -41,7 +39,7 @@ import com.xiemj.convention.data.domain.DefaultPage;
  * 项目地址 : http://git.oschina.net/free/Mybatis_PageHelper
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class PageInfo<T> extends DefaultPage implements Serializable {
+public class PageInfo<T>  extends Page implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
@@ -71,7 +69,7 @@ public class PageInfo<T> extends DefaultPage implements Serializable {
     }
 
     public PageInfo(int pageNumber, int pageSize, List<T> results, long totalCount) {
-        super(pageNumber,pageSize,results,totalCount);
+        super(pageNumber,pageSize,false);
         if (results instanceof Collection) {
             this.navigatePages = 8;
             //计算导航页
@@ -84,7 +82,6 @@ public class PageInfo<T> extends DefaultPage implements Serializable {
     }
 
     public PageInfo(Page page) {
-        super(page.getPageNum(),page.getPageSize(),page,page.getTotal());
         if (page instanceof Collection) {
             if(page.getNavigatePages()>0) {
                 this.navigatePages = page.getNavigatePages();
@@ -109,8 +106,8 @@ public class PageInfo<T> extends DefaultPage implements Serializable {
             }
         } else { //当总页数大于导航页码数时
             navigatepageNums = new int[navigatePages];
-            int startNum = this.getPageNumber() - navigatePages / 2;
-            int endNum = this.getPageNumber() + navigatePages / 2;
+            int startNum = this.getPageNum() - navigatePages / 2;
+            int endNum = this.getPageNum() + navigatePages / 2;
 
             if (startNum < 1) {
                 startNum = 1;
@@ -140,11 +137,11 @@ public class PageInfo<T> extends DefaultPage implements Serializable {
         if (navigatepageNums != null && navigatepageNums.length > 0) {
             navigateFirstPage = navigatepageNums[0];
             navigateLastPage = navigatepageNums[navigatepageNums.length - 1];
-            if ( this.getPageNumber() > 1) {
-                prePage =  this.getPageNumber() - 1;
+            if ( this.getPageNum() > 1) {
+                prePage =  this.getPageNum() - 1;
             }
-            if (this.getPageNumber() < this.getTotalPages()) {
-                nextPage =  this.getPageNumber() + 1;
+            if (this.getPageNum() < this.getPages()) {
+                nextPage =  this.getPageNum() + 1;
             }
         }
     }
@@ -153,10 +150,10 @@ public class PageInfo<T> extends DefaultPage implements Serializable {
      * 判定页面边界
      */
     private void judgePageBoudary() {
-        isFirstPage = this.getPageNumber() == 1;
-        isLastPage = this.getPageNumber() == this.getTotalPages() || this.getTotalPages() == 0;;
-        hasPreviousPage = this.getPageNumber() > 1;
-        hasNextPage = this.getPageNumber() < this.getTotalPages();
+        isFirstPage = this.getPageNum() == 1;
+        isLastPage = this.getPageNum() == this.getPages() || this.getPages() == 0;;
+        hasPreviousPage = this.getPageNum() > 1;
+        hasNextPage = this.getPageNum() < this.getPages();
     }
 
 
@@ -208,13 +205,6 @@ public class PageInfo<T> extends DefaultPage implements Serializable {
         this.hasNextPage = hasNextPage;
     }
 
-    public int getNavigatePages() {
-        return navigatePages;
-    }
-
-    public void setNavigatePages(int navigatePages) {
-        this.navigatePages = navigatePages;
-    }
 
     public int[] getNavigatepageNums() {
         return navigatepageNums;
@@ -244,11 +234,10 @@ public class PageInfo<T> extends DefaultPage implements Serializable {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("PageInfo{");
-        sb.append("pageNum=").append(this.getPageNumber());
+        sb.append("pageNum=").append(this.getPageNum());
         sb.append(", pageSize=").append(this.getPageSize());
-        sb.append(", total=").append(this.getTotalCount());
+        sb.append(", total=").append(this.getTotal());
         sb.append(", pages=").append(this.getPageSize());
-        sb.append(", list=").append(this.getResults());
         sb.append(", prePage=").append(prePage);
         sb.append(", nextPage=").append(nextPage);
         sb.append(", isFirstPage=").append(isFirstPage);

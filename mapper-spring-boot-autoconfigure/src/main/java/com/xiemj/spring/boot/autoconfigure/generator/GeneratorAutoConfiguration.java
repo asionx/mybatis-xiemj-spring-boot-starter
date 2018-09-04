@@ -33,7 +33,10 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import com.alibaba.druid.util.StringUtils;
-import xiemj.springboot.mybatis.pagetool.util.StringUtil;
+
+import gaohao.springboot.mybatis.generator.servlet.GeneratorHtmlServlet;
+import gaohao.springboot.mybatis.generator.servlet.GeneratorProServlet;
+import gaohao.springboot.mybatis.generator.servlet.MybatisGeneratorServlet;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -45,9 +48,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import xiemj.springboot.mybatis.generator.servlet.GeneratorHtmlServlet;
-import xiemj.springboot.mybatis.generator.servlet.GeneratorProServlet;
-import xiemj.springboot.mybatis.generator.servlet.MybatisGeneratorServlet;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -79,7 +79,7 @@ public class GeneratorAutoConfiguration extends WebMvcConfigurerAdapter {
             path=System.getProperty("user.dir")+"/target";
         }
         String basePath=path+"/mybatisGenerator";
-        if(StringUtil.isEmpty(targetPath)){
+        if(org.springframework.util.StringUtils.isEmpty(targetPath)){
             targetPath=basePath;
         }
         File baseMkdir =new File(basePath);

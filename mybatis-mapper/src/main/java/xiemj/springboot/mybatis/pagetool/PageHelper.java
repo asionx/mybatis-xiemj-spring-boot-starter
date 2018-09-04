@@ -32,12 +32,11 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.RowBounds;
 
-import com.xiemj.convention.data.domain.PageQuery;
-
 import xiemj.springboot.mybatis.pagetool.dialect.AbstractHelperDialect;
 import xiemj.springboot.mybatis.pagetool.page.PageAutoDialect;
 import xiemj.springboot.mybatis.pagetool.page.PageMethod;
 import xiemj.springboot.mybatis.pagetool.page.PageParams;
+import xiemj.springboot.mybatis.pagetool.page.PageQuery;
 import xiemj.springboot.mybatis.pagetool.util.MSUtils;
 import xiemj.springboot.mybatis.pagetool.util.StringUtil;
 
@@ -150,11 +149,11 @@ public class PageHelper extends PageMethod implements Dialect {
     }
 
     public static <E> PageInfo<E> startPage(PageQuery pageQuery, boolean isCount,ISelect select) {
-        return startPage(pageQuery.getPageNumber(),pageQuery.getPageSize(),true,select);
+        return startPage(pageQuery.getPageNum(),pageQuery.getPageSize(),true,select);
     }
 
     public static <E> PageInfo<E> startPage(PageQuery pageQuery, boolean isCount) {
-        Page<E> page = new Page<E>(pageQuery.getPageNumber(), pageQuery.getPageSize(), isCount);
+        Page<E> page = new Page<E>(pageQuery.getPageNum(), pageQuery.getPageSize(), isCount);
         setLocalPage(page);
         return page.toPageInfo();
     }
